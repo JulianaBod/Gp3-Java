@@ -31,17 +31,30 @@ public class Fenetre extends JFrame {
 		
 		this.setTitle("4 mots pour 1 mot");
 		this.setSize(700, 700);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane(buildContentPane());
 		
+		
 		this.setLayout(new GridLayout(2, 2));
+		
+		JButton button1 = new JButton("1");
+		JButton button2 = new JButton("2");
+		JButton button3 = new JButton("3");
+		JButton button4 = new JButton("4");
+		
+		this.getContentPane().add(button1);
+		//button1.setSize(10, 10);
+		button1.setLocation(300, 300);
 	
-		this.getContentPane().add(new JButton("1"));
-		this.getContentPane().add(new JButton("2"));
-		this.getContentPane().add(new JButton("3"));
-		this.getContentPane().add(new JButton("4"));
+		this.getContentPane().add(button2);
+		button2.setSize(10, 10);
+		this.getContentPane().add(button3);
+		button3.setSize(10, 10);
+		this.getContentPane().add(button4);
+		button4.setSize(10, 10);
+		
 		
 		
 
