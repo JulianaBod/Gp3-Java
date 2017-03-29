@@ -2,7 +2,7 @@ package prj;
 
 import java.util.Scanner;
 
-public class Tab extends Game{
+public class Tab{
 	Scanner scan = new Scanner(System.in);
 	String ouiOuNon2;
 	String oui = "o";
@@ -11,57 +11,60 @@ public class Tab extends Game{
 	int scoreTotal;
 	int i;
 	int count;
+	int next = 0;
+	String niveau9;
 
-	public Tab() {
-	}
+	public Tab() {}
 
 	public void displayTab() {
-		Joueur score = new Joueur();
-
+		
+		//Création d'un nouveau joueur
+		//Joueur score = new Joueur();		
+		
+		//Boucle générale qui englobe le jeu
 		do {
+			
+			//Choix du niveau par le joueur
+			System.out.println("Pour commencer choisis ton niveau : 1/2/3/4");
+			niveau9 = scan.nextLine();
+			
+			//Boucle permettant d'enchainer les 6 questions du niveau choisit
 			for (int test = 0; test <=5; test++) {
+				
+				//Création d'un nouveau Level
+				Level level = new Level();
+				
+				//Stockage de la méthode qui affiche le tableau du niveau choisit
+				String[][] tab = level.Afficher(niveau9);
+				
+				//Stockage de la méthode qui contient la réponse à la question
+				String reponse3 = level.ReponseJeu(tab,next);
+				
+				//Stockage de la méthode qui contient le nombre de lettres de la réponse à la question
+				String lettres = level.LettreJeu(tab,next);
 
-				int min = 0;
-				// modifier la valeur suivant le nombre de possiblité de jeu
-				// dans le tableau
-				int max = 5;
-				int r = min + (int) (Math.random() * ((max - min) + 1));
-				// valeur qui détermine le choix du jeu, la ligne du tableau
-				int choixJeu = r;
+				//Variable stockant la taille de la réponse
+				int taille = reponse3.length();
+				
+				//Appel de la méthoe affichant les informations sur le jeu en cours
+				level.Aller(tab, lettres, next);
+				
+				//Affichage de la méhode qui mélange et affiche toutes les lettres random et celle de la réponse
+				System.out.println(letters(reponse3, taille));
 
-				// tableau chaque ligne correspond a un jeu dofférent
-				// la cinquième valeur dune ligne correspond tounours a la
-				// reponse
-				// la sixieme valeur correspond toujour au nombre de lettre de
-				// la réponse
-				String jeu[][] = { { "Pomme", "Fraise", "Pèche", "Cerise", "fruit", "5" },
-						{ "Epinard", "Carrotte", "Pomme de terre", "Courge", "légume", "6" },
-						{ "France", "Russie", "Mexique", "Allemagne", "pays", "4" },
-						{ "Vert", "Violet", "Orange", "Blanc", "couleur", "7" },
-						{ "Tennis", "Natation", "Danse", "Athlétisme", "sport", "5" },
-						{ "Lion", "Guépard", "Panterre", "Crocodile", "animal", "6" } };
-
-				// case du tableau correspondant a la reponse du jeu
-				String reponseJeu = jeu[choixJeu][4];
-				String lettreJeu = jeu[choixJeu][5];
-
-				int taille = reponseJeu.length();
-
-				// affiche les mot du jeu
-				System.out.println("\n1." + jeu[choixJeu][0] + " 2." + jeu[choixJeu][1] + " 3." + jeu[choixJeu][2]
-						+ " 4." + jeu[choixJeu][3]);
-				System.out.print("\nLe mot est constitué de " + lettreJeu + " lettres parmis les lettre suivantes : ");
-
-				System.out.println(letters(reponseJeu, taille));
-
+				//Prise en compte de la réponse du joueur
 				System.out.println("Le mot est :");
 				String reponse = scan.nextLine();
 
 				int essaie = 0;
 
-				// si la premiere reponse est bonne
-				if (reponse.equalsIgnoreCase(reponseJeu)) {
+				//Vérification de la réponse bonne ou fausse
+				//Si la premiere reponse est bonne
+				if (reponse.equalsIgnoreCase(reponse3)) {
+					//Ajout de 1 à la variable essai
 					essaie++;
+					
+					//
 					if (essaie >= 3) {
 						scoreTotal = scoreTotal + 1;
 						System.out.println(
@@ -76,6 +79,9 @@ public class Tab extends Game{
 						scoreTotal = scoreTotal + 0;
 						System.out.println("Dommage tu as trouvé la réponse en plus de 8 essais! tu ne gagnes pas de point.");
 					}
+					
+					next++;
+					
 
 					// si la premiere reponse est fausse
 				}
@@ -92,10 +98,10 @@ public class Tab extends Game{
 						essaie++;
 						count++;
 						if (count >= 2) {
-							System.out.println("Le mot commence par la lettre : " + reponseJeu.charAt(0));
+							System.out.println("Le mot commence par la lettre : " + reponse3.charAt(0));
 						}
 						// si une des reponses suivantes est bonne
-					} while (!reponse2.equalsIgnoreCase(reponseJeu));
+					} while (!reponse2.equalsIgnoreCase(reponse3));
 					essaie++;
 					if (essaie >= 3) {
 						scoreTotal = scoreTotal + 1;
@@ -111,8 +117,8 @@ public class Tab extends Game{
 						scoreTotal = scoreTotal + 0;
 						System.out.println("Dommage tu as trouvé la réponse en plus de 8 essais tu ne gagnes pas de point.");
 					}
+					next++;
 				}
-
 				System.out.println("Score : " + scoreTotal + "\n");
 			}
 
@@ -126,21 +132,13 @@ public class Tab extends Game{
 		} while(ouiOuNon2.equalsIgnoreCase(oui));
 
 	}
-	
-	public int getTotal(){
-		return scoreTotal;
-	}
-	
-	public String getAnswer(){
-		return ouiOuNon2;
-	}
 
-	public char[] letters(String reponseJeu, int taille) {
+	public char[] letters(String reponse3, int taille) {
 		char[] tab = new char[taille];
 		char[] tab1 = new char[0];
 		char temp;
 		for (i = 0; i < taille; i++) {
-			tab[i] = reponseJeu.charAt(i);
+			tab[i] = reponse3.charAt(i);
 		}
 
 		for (i = 0; i < (taille) - 1; i++) {
@@ -151,14 +149,33 @@ public class Tab extends Game{
 			tab[j] = temp;
 		}
 
-		for (i = 0; i < taille; i++) {
+		for (i = 0; i < tab1.length; i++) {
 			int min1 = 97;
 			int max1 = 122;
 			int p = min1 + (int) (Math.random() * ((max1 - min1) + 1));
-			int lettre = p;
-			System.out.print((char) lettre);
+			System.out.print((char) p);
 			System.out.print(tab[i]);
 		}
+		
+	
+			
 		return tab1;
+	}
+	
+	
+	public int getTotal(){
+		return scoreTotal;
+	}
+	
+	public String getAnswer(){
+		return ouiOuNon2;
+	}
+	
+	public String getNiveau(){
+		return niveau9;
+	}
+	
+	public int getNext(){
+		return next;
 	}
 }
