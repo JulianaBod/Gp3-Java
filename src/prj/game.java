@@ -15,8 +15,9 @@ public class Game {
                 + "Une aide te sera fournie en cas de difficulté.\n"
                 + "A la fin de ta partie, ton score final te sera donné.\n");
 
-
+        //nouvelle object j1
         Joueur j1 = new Joueur();
+        //appelle de la methode pseudo
         j1.setPseudo();
 
         Scanner scan = new Scanner(System.in);
@@ -34,15 +35,20 @@ public class Game {
             ouiOuNon = scan.nextLine();
         }
 
+
         Tab t1 = new Tab();
+        //le joueur decide de commencer
         if (ouiOuNon.equalsIgnoreCase(oui)) {
+            //appelle de la methode du jeu
             t1.displayTab();
+            //le joueur decide darreter le jeu
             if(t1.getAnswer().equalsIgnoreCase(non)){
             	System.out.println("Bien joué " + player + ", tu as totalisé un score de " + t1.getTotal() + " points!");
             	System.out.println("\nFin du jeu.");
             }
         }
 
+        //le joueur decide de ne pas commencer le jeu
         else {
             System.out.println("\nFin du jeu.");
         }

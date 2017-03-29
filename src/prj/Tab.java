@@ -18,10 +18,10 @@ public class Tab{
 
 	public void displayTab() {
 		
-		//Création d'un nouveau joueur
+		//Crï¿½ation d'un nouveau joueur
 		//Joueur score = new Joueur();		
 		
-		//Boucle générale qui englobe le jeu
+		//Boucle gï¿½nï¿½rale qui englobe le jeu
 		do {
 			
 			//Choix du niveau par le joueur
@@ -31,91 +31,73 @@ public class Tab{
 			//Boucle permettant d'enchainer les 6 questions du niveau choisit
 			for (int test = 0; test <=5; test++) {
 				
-				//Création d'un nouveau Level
+				//Crï¿½ation d'un nouveau Level
 				Level level = new Level();
 				
-				//Stockage de la méthode qui affiche le tableau du niveau choisit
+				//Stockage de la mï¿½thode qui affiche le tableau du niveau choisit
 				String[][] tab = level.Afficher(niveau9);
 				
-				//Stockage de la méthode qui contient la réponse à la question
+				//Stockage de la mï¿½thode qui contient la rï¿½ponse ï¿½ la question
 				String reponse3 = level.ReponseJeu(tab,next);
 				
-				//Stockage de la méthode qui contient le nombre de lettres de la réponse à la question
+				//Stockage de la mï¿½thode qui contient le nombre de lettres de la rï¿½ponse ï¿½ la question
 				String lettres = level.LettreJeu(tab,next);
 
-				//Variable stockant la taille de la réponse
+				//Variable stockant la taille de la rï¿½ponse
 				int taille = reponse3.length();
 				
-				//Appel de la méthoe affichant les informations sur le jeu en cours
+				//Appel de la mï¿½thoe affichant les informations sur le jeu en cours
 				level.Aller(tab, lettres, next);
 				
-				//Affichage de la méhode qui mélange et affiche toutes les lettres random et celle de la réponse
+				//Affichage de la mï¿½hode qui mï¿½lange et affiche toutes les lettres random et celle de la rï¿½ponse
 				System.out.println(letters(reponse3, taille));
 
-				//Prise en compte de la réponse du joueur
+				//Prise en compte de la rï¿½ponse du joueur
 				System.out.println("Le mot est :");
 				String reponse = scan.nextLine();
 
+				//la variable essaie est un compteur qui permet de connaitre le nombre dessaie necessaire au joueur pour trouver la reponse
 				int essaie = 0;
 
-				//Vérification de la réponse bonne ou fausse
-				//Si la premiere reponse est bonne
+				//vÃ©rification de la premiere reponse entrÃ© par le joueur
 				if (reponse.equalsIgnoreCase(reponse3)) {
-					//Ajout de 1 à la variable essai
+					//si la reponse est bonne
 					essaie++;
-					
-					//
-					if (essaie >= 3) {
-						scoreTotal = scoreTotal + 1;
-						System.out.println(
-								"Dommage tu as trouvé la réponse en plus de 3 essais! Tu gagnes seulement 1 point");
-					} else if (essaie == 2) {
-						scoreTotal = scoreTotal + 2;
-						System.out.println("Bravo tu as trouver la réponse en 2 essais! Tu gagnes 2 points.");
-					} else if (essaie == 1) {
-						scoreTotal = scoreTotal + 3;
-						System.out.println("Bravo tu as trouver la réponse en 1 essais! Tu gagnes 3 points.");
-					}else if (essaie >=8){
-						scoreTotal = scoreTotal + 0;
-						System.out.println("Dommage tu as trouvé la réponse en plus de 8 essais! tu ne gagnes pas de point.");
-					}
-					
-					next++;
-					
 
-					// si la premiere reponse est fausse
+					//la premiere reponse est bonne le joueur gagne 3 points
+					scoreTotal = scoreTotal + 3;
+					System.out.println("Bravo tu as trouver la rï¿½ponse en 1 essais! Tu gagnes 3 points.");
+
+					next++;
 				}
 
 				else if (reponse.equalsIgnoreCase("exit")) {
 					break;
 				}
 
+				//dans le cas ou la premiere reponse est fausse on crÃ©Ã© une boucle pour redemander la reponse tant que le joueur na pas trouver
 				else {
 					String reponse2;
 					do {
-						System.out.println("Mauvaise réponse! \nLe mot est :");
+						System.out.println("Mauvaise rï¿½ponse! \nLe mot est :");
 						reponse2 = scan.nextLine();
 						essaie++;
 						count++;
 						if (count >= 2) {
 							System.out.println("Le mot commence par la lettre : " + reponse3.charAt(0));
 						}
-						// si une des reponses suivantes est bonne
 					} while (!reponse2.equalsIgnoreCase(reponse3));
 					essaie++;
-					if (essaie >= 3) {
-						scoreTotal = scoreTotal + 1;
-						System.out.println("Dommage tu as trouvé la réponse en plus de 3 essais tu gagnes seulement 1 point.");
-					} else if (essaie == 2) {
+					//quand le joueur un trouver la bonne reponse on vÃ©rifie le nombre dessaie puis on calcule le score
+					if (essaie == 2) {
 						scoreTotal = scoreTotal + 2;
-						System.out.println("Bravo tu as trouver la réponse en 2 essais! tu gagnes 2 points.");
-					} else if (essaie == 1) {
-						scoreTotal = scoreTotal + 3;
-						System.out.println("Bravo tu as trouver la réponse en 1 essais! Tu gagnes 3 points.");
-					}
-					else if (essaie >=8){
+						System.out.println("Bravo tu as trouver la rï¿½ponse en 2 essais! tu gagnes 2 points.");
+					}else if (essaie >= 3) {
+						scoreTotal = scoreTotal + 1;
+						System.out.println("Dommage tu as trouvï¿½ la rï¿½ponse en plus de 3 essais tu gagnes seulement 1 point.");
+					}else if (essaie >=8){
 						scoreTotal = scoreTotal + 0;
-						System.out.println("Dommage tu as trouvé la réponse en plus de 8 essais tu ne gagnes pas de point.");
+						System.out.println("Dommage tu as trouvï¿½ la rï¿½ponse en plus de 8 essais tu ne gagnes pas de point.");
 					}
 					next++;
 				}
@@ -143,7 +125,7 @@ public class Tab{
 
 		for (i = 0; i < (taille) - 1; i++) {
 			int j = (int) (Math.random() * (i + 1));// j est une valeur
-													// aléatoire
+													// alï¿½atoire
 			temp = tab[i];
 			tab[i] = tab[j];
 			tab[j] = temp;

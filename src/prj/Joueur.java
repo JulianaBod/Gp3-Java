@@ -7,13 +7,12 @@ public class Joueur {
     Scanner scan = new Scanner(System.in);
     String pseudo;
 
-    public Joueur (){}
-
+    //choix du pseudo par le joueur
     public String setPseudo(){
         do {
             System.out.println("Entrer votre Pseudo :");
             pseudo = scan.nextLine();
-            // si le speudo est inférieur a 3 lettres, le pseudo est redemandé
+            // si le speudo est infï¿½rieur a 3 lettres, le pseudo est redemandï¿½
             while (pseudo.length() < 3) {
                 System.out.println("Votre Pseudo est trop court. Veuillez entrer votre Pseudo :");
                 pseudo = scan.nextLine();
@@ -21,7 +20,8 @@ public class Joueur {
         } while (pseudo.length() < 3);
         return pseudo;
     }
-    
+
+    //retourne le pseudo choisi pas le joueur
     public String getPseudo(){
         return pseudo;
     }
