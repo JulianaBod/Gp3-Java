@@ -12,7 +12,7 @@ public class Level {
 
 		// Création d'un tableau à 2 dimansions vide de taille 6/6 pour stocker
 		// les données plus tard
-		String[][] jeu = new String[6][6];
+		
 
 		// Insertion des données dans chaque tableau
 
@@ -48,6 +48,8 @@ public class Level {
 				{ "George Clooney", "Hugh Jackman", "Mark Hamill", "Scarlett Johansson", "acteur", "6" },
 				{ "Fanta", "Coca", "Orangina", "Pepsi", "soda", "4" },
 				{ "Clafoutis", "Eclair", "Paris-Brest", "Macaron", "dessert", "7" } };
+		
+		String[][] jeu = new String[6][6];
 
 		// Vérification du niveau choisit par l'utilisateur (valide ou non)
 		while ((!niveaux.equalsIgnoreCase("1")) && (!niveaux.equalsIgnoreCase("2")) && (!niveaux.equalsIgnoreCase("3")) && (!niveaux.equalsIgnoreCase("4"))) {
@@ -56,13 +58,13 @@ public class Level {
 			niveaux = scan.nextLine();
 		}
 		
-		if (!niveaux.equalsIgnoreCase("1")) {
+		if (niveaux.equalsIgnoreCase("1")) {
 			jeu = jeuNiveau1;
-		} else if (!niveaux.equalsIgnoreCase("2")) {
+		} else if (niveaux.equalsIgnoreCase("2")) {
 			jeu = jeuNiveau2;
-		} else if (!niveaux.equalsIgnoreCase("3")) {
+		} else if (niveaux.equalsIgnoreCase("3")) {
 			jeu = jeuNiveau3;
-		} else if (!niveaux.equalsIgnoreCase("4")) {
+		} else if (niveaux.equalsIgnoreCase("4")) {
 			jeu = jeuNiveau4;
 		}
 

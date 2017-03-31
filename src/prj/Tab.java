@@ -2,7 +2,7 @@ package prj;
 
 import java.util.Scanner;
 
-public class Tab{
+public class Tab {
 	Scanner scan = new Scanner(System.in);
 	String ouiOuNon2;
 	String oui = "o";
@@ -14,72 +14,81 @@ public class Tab{
 	int next = 0;
 	String niveau9;
 
-	public Tab() {}
+	public Tab() {
+	}
 
 	public void displayTab() {
-		
-		//Crï¿½ation d'un nouveau joueur
-		//Joueur score = new Joueur();		
-		
-		//Boucle gï¿½nï¿½rale qui englobe le jeu
+
+		// Création d'un nouveau joueur
+		// Joueur score = new Joueur();
+
+		// Boucle générale qui englobe le jeu
 		do {
-			
-			//Choix du niveau par le joueur
+
+			// Choix du niveau par le joueur
 			System.out.println("Pour commencer choisis ton niveau : 1/2/3/4");
 			niveau9 = scan.nextLine();
-			
-			//Boucle permettant d'enchainer les 6 questions du niveau choisit
-			for (int test = 0; test <=5; test++) {
-				
-				//Crï¿½ation d'un nouveau Level
-				Level level = new Level();
-				
-				//Stockage de la mï¿½thode qui affiche le tableau du niveau choisit
-				String[][] tab = level.Afficher(niveau9);
-				
-				//Stockage de la mï¿½thode qui contient la rï¿½ponse ï¿½ la question
-				String reponse3 = level.ReponseJeu(tab,next);
-				
-				//Stockage de la mï¿½thode qui contient le nombre de lettres de la rï¿½ponse ï¿½ la question
-				String lettres = level.LettreJeu(tab,next);
 
-				//Variable stockant la taille de la rï¿½ponse
+			// Boucle permettant d'enchainer les 6 questions du niveau choisit
+			for (int test = 0; test <= 5; test++) {
+
+				// Création d'un nouveau Level
+				Level level = new Level();
+
+				// Stockage de la méthode qui affiche le tableau du niveau
+				// choisit
+				String[][] tab = level.Afficher(niveau9);
+
+				// Stockage de la méthode qui contient la réponse à la question
+				String reponse3 = level.ReponseJeu(tab, next);
+
+				// Stockage de la méthode qui contient le nombre de lettres de
+				// la réponse à la question
+				String lettres = level.LettreJeu(tab, next);
+
+				// Variable stockant la taille de la réponse
 				int taille = reponse3.length();
-				
-				//Appel de la mï¿½thoe affichant les informations sur le jeu en cours
+
+				// Appel de la méthoe affichant les informations sur le jeu en
+				// cours
 				level.Aller(tab, lettres, next);
-				
-				//Affichage de la mï¿½hode qui mï¿½lange et affiche toutes les lettres random et celle de la rï¿½ponse
+
+				// Affichage de la méhode qui mélange et affiche toutes les
+				// lettres random et celle de la réponse
 				System.out.println(letters(reponse3, taille));
 
-				//Prise en compte de la rï¿½ponse du joueur
+				// Prise en compte de la réponse du joueur
 				System.out.println("Le mot est :");
 				String reponse = scan.nextLine();
 
-				//la variable essaie est un compteur qui permet de connaitre le nombre dessaie necessaire au joueur pour trouver la reponse
+				// la variable essaie est un compteur qui permet de connaitre le
+				// nombre dessaie necessaire au joueur pour trouver la reponse
 				int essaie = 0;
 
-				//vÃ©rification de la premiere reponse entrÃ© par le joueur
+				// vérification de la premiere reponse entré par le joueur
 				if (reponse.equalsIgnoreCase(reponse3)) {
-					//si la reponse est bonne
+					// si la reponse est bonne
 					essaie++;
 
-					//la premiere reponse est bonne le joueur gagne 3 points
+					// la premiere reponse est bonne le joueur gagne 3 points
 					scoreTotal = scoreTotal + 3;
-					System.out.println("Bravo tu as trouver la rï¿½ponse en 1 essais! Tu gagnes 3 points.");
+					System.out.println("Bravo tu as trouver la réponse en 1 essais! Tu gagnes 3 points.");
 
 					next++;
 				}
 
 				else if (reponse.equalsIgnoreCase("exit")) {
+					next = 0;
 					break;
 				}
 
-				//dans le cas ou la premiere reponse est fausse on crÃ©Ã© une boucle pour redemander la reponse tant que le joueur na pas trouver
+				// dans le cas ou la premiere reponse est fausse on créé une
+				// boucle pour redemander la reponse tant que le joueur na pas
+				// trouver
 				else {
 					String reponse2;
 					do {
-						System.out.println("Mauvaise rï¿½ponse! \nLe mot est :");
+						System.out.println("Mauvaise réponse! \nLe mot est :");
 						reponse2 = scan.nextLine();
 						essaie++;
 						count++;
@@ -88,16 +97,19 @@ public class Tab{
 						}
 					} while (!reponse2.equalsIgnoreCase(reponse3));
 					essaie++;
-					//quand le joueur un trouver la bonne reponse on vÃ©rifie le nombre dessaie puis on calcule le score
+					// quand le joueur un trouver la bonne reponse on vérifie le
+					// nombre dessaie puis on calcule le score
 					if (essaie == 2) {
 						scoreTotal = scoreTotal + 2;
-						System.out.println("Bravo tu as trouver la rï¿½ponse en 2 essais! tu gagnes 2 points.");
-					}else if (essaie >= 3) {
+						System.out.println("Bravo tu as trouver la réponse en 2 essais! tu gagnes 2 points.");
+					} else if (essaie >= 3 && essaie<8) {
 						scoreTotal = scoreTotal + 1;
-						System.out.println("Dommage tu as trouvï¿½ la rï¿½ponse en plus de 3 essais tu gagnes seulement 1 point.");
-					}else if (essaie >=8){
+						System.out.println(
+								"Dommage tu as trouvé la réponse en plus de 3 essais tu gagnes seulement 1 point.");
+					} else if (essaie >= 8) {
 						scoreTotal = scoreTotal + 0;
-						System.out.println("Dommage tu as trouvï¿½ la rï¿½ponse en plus de 8 essais tu ne gagnes pas de point.");
+						System.out.println(
+								"Dommage tu as trouvé la réponse en plus de 8 essais tu ne gagnes pas de point.");
 					}
 					next++;
 				}
@@ -111,53 +123,64 @@ public class Tab{
 				System.out.println("\nSelectionner O ou N :");
 				ouiOuNon2 = scan.nextLine();
 			}
-		} while(ouiOuNon2.equalsIgnoreCase(oui));
+		} while (ouiOuNon2.equalsIgnoreCase(oui));
 
 	}
 
 	public char[] letters(String reponse3, int taille) {
 		char[] tab = new char[taille];
-		char[] tab1 = new char[0];
+		char[] tab3 = new char[12];
 		char temp;
+
 		for (i = 0; i < taille; i++) {
 			tab[i] = reponse3.charAt(i);
 		}
 
 		for (i = 0; i < (taille) - 1; i++) {
 			int j = (int) (Math.random() * (i + 1));// j est une valeur
-													// alï¿½atoire
+													// aléatoire
 			temp = tab[i];
 			tab[i] = tab[j];
 			tab[j] = temp;
 		}
 
-		for (i = 0; i < tab1.length; i++) {
+		for (i = 0; i < tab3.length; i++) {
 			int min1 = 97;
 			int max1 = 122;
 			int p = min1 + (int) (Math.random() * ((max1 - min1) + 1));
-			System.out.print((char) p);
-			System.out.print(tab[i]);
+			tab3[i] = (char) p;
 		}
-		
-	
-			
-		return tab1;
+
+		for (int o = 0; o < tab3.length; o++) {
+			int m = (int) (Math.random() * (taille));
+
+			if (m < taille) {
+				temp = tab3[o];
+				tab3[o] = tab[m];
+				tab[m] = temp;
+			} else {
+				tab3[o] = tab3[o];
+			}
+		}
+
+		return tab3;
+
 	}
-	
-	
-	public int getTotal(){
+
+	public int getTotal() {
 		return scoreTotal;
 	}
-	
-	public String getAnswer(){
+
+	public String getAnswer() {
 		return ouiOuNon2;
 	}
-	
-	public String getNiveau(){
+
+	public String getNiveau() {
 		return niveau9;
 	}
-	
-	public int getNext(){
+
+	public int getNext() {
 		return next;
 	}
+
 }
